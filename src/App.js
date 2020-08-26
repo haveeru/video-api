@@ -5,6 +5,7 @@ import VideoList from "./components/VideoList";
 
 function App() {
   const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   const onTermSubmit = async (term) => {
    const response = await  youtube.get('/search', {
@@ -16,11 +17,15 @@ function App() {
     setVideos(response.data.items)
   };
 
+ const onVideoSelect = (video) => {
+  console.log('from the app ', video)
+ }
+
   return (
     <div className="ui container">
       {" "}
       <SearchBar onSubmit={onTermSubmit} />
-      <VideoList videos={videos} />
+      <VideoList videos={videos} onVideoSelect={onVideoSelect} />
     </div>
   );
 }
